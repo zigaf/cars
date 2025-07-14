@@ -1,0 +1,53 @@
+<div class="car-details-layout">
+  <!-- Левая часть -->
+  <div class="car-details-left">
+    <app-splide-slider
+      [slides]="images"
+      [options]="{ height: 400, start: selectedImageIdx }">
+    </app-splide-slider>
+
+    <div class="car-thumbnails">
+      <img *ngFor="let img of images; let i = index"
+           [src]="img"
+           [class.active]="i === selectedImageIdx"
+           (click)="selectImage(i)" />
+    </div>
+
+    <div class="car-description">
+      <h3>Описание:</h3>
+      <div>{{ car?.description || car?.compatibility }}</div>
+    </div>
+  </div>
+
+  <!-- Правая часть -->
+  <div class="car-details-right">
+    <h1 class="car-title">{{ car?.boiler_manufacturer }} {{ car?.name }} {{ car?.Year }}</h1>
+    <div class="car-price">
+      <span>{{ car?.price | number }} $</span>
+    </div>
+    <div class="car-props">
+      <div><b>VIN:</b> <span class="show-vin" (click)="openVinModal()">Показать</span></div>
+      <div><b>Пробег:</b> {{ car?.Mileage }}</div>
+      <div><b>Двигатель:</b> {{ car?.Engine }}</div>
+      <div><b>Трансмиссия:</b> {{ car?.Transmission }}</div>
+      <div><b>Привод:</b> {{ car?.Drive }}</div>
+      <div><b>Кузов:</b> {{ car?.bodyType }}</div>
+      <div><b>Год:</b> {{ car?.Year }}</div>
+      <div><b>Топливо:</b> {{ car?.fuel }}</div>
+      <div><b>Цвет:</b> {{ car?.color }}</div>
+      <div><b>Мест:</b> {{ car?.seats }}</div>
+      <div><b>В наличии:</b> {{ car?.in_stock }}</div>
+    </div>
+    <button class="main-btn" (click)="openOrderModal()">Купить</button>
+    <div class="side-actions">
+      <a href="#" (click)="openFavModal($event)">Добавить в избранное</a>
+      <a href="#" (click)="openQuestionModal($event)">Задать вопрос</a>
+    </div>
+    <div class="carfax-action">
+      <button (click)="openCarfaxModal()">Carfax отчет</button>
+    </div>
+    <div class="calc-action">
+      <button (click)="openCalcModal()">Рассчитать стоимость</button>
+    </div>
+  </div>
+</div>

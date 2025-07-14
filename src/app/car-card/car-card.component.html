@@ -1,0 +1,11 @@
+<div class="car-card">
+  <div class="car-card-img-wrap">
+    <img [src]="car.img" [alt]="car.title" />
+    <span class="top-tag" *ngIf="car.top">ТОП ЗАКАЗОВ</span>
+  </div>
+  <div class="car-card-info">
+    <h3>{{ car.brand }}</h3>
+    <div class="car-card-desc">{{ car.model }}, {{ car.year }}</div>
+    <div class="car-card-price">{{ car.price | number }} $</div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<!--<ul class="splide__list">-->
+<!--  <li class="splide__slide" *ngFor="let slide of slides">-->
+<!--    <ng-container *ngIf="type === 'hero'; else photoTpl">-->
+<!--      <div class="hero-slide" [ngStyle]="{'background-image': 'url(' + slide.img + ')'}">-->
+<!--        <div class="hero-content">-->
+<!--          <h1>{{ slide.title }}</h1>-->
+<!--          <h2 *ngIf="slide.subtitle">{{ slide.subtitle }}</h2>-->
+<!--          <p>{{ slide.text }}</p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </ng-container>-->
+<!--    <ng-template #photoTpl>-->
+<!--      <img [src]="slide" alt="Фото" />-->
+<!--    </ng-template>-->
+<!--  </li>-->
+<!--</ul>-->
+<swiper-container
+  slides-per-view="1"
+  speed="500"
+  loop="true"
+ >
+
+  <swiper-slide *ngFor="let slide of slides">
+    <img class="slide" [src]="slide" />
+  </swiper-slide>
+</swiper-container>
+
+<!--<div class="swiper">-->
+<!--  <div class="swiper-wrapper">-->
+<!--    <div *ngFor="let slide of slides;let index = index" class="swiper-slide">-->
+<!--      <img class="slide" [src]="slide">-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+
+
+
+
