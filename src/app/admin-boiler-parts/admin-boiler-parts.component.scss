@@ -1,0 +1,94 @@
+.modal.d-block {
+  display: block !important;
+}
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal-content {
+  background: #18181c;
+  color: #f7cb51;
+  border-radius: 1rem;
+  box-shadow: 0 12px 36px #000a, 0 1.5px 0.5px #2224;
+  border: 1.5px solid #f7cb51;
+}
+
+.modal-header, .modal-footer {
+  border: none;
+  background: transparent;
+  color: #f7cb51;
+}
+
+.modal-title {
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: .5px;
+}
+
+.form-label, label {
+  color: #f7cb51 !important;
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+  font-size: 1rem;
+}
+
+input.form-control, textarea.form-control {
+  background: #202027;
+  color: #f7cb51;
+  border: 1px solid #383838;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border 0.2s;
+}
+input.form-control:focus, textarea.form-control:focus {
+  border: 1.5px solid #f7cb51;
+  background: #202027;
+  color: #fffad1;
+}
+
+.btn-success {
+  background: linear-gradient(90deg, #f7cb51, #b68900);
+  color: #1a1a1a;
+  border: none;
+  font-weight: 700;
+  transition: background 0.2s;
+}
+.btn-success:hover {
+  background: linear-gradient(90deg, #ffe18f, #b68900);
+  color: #000;
+}
+
+.btn-outline-primary, .btn-outline-danger {
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 0.97rem;
+}
+
+.btn-secondary {
+  background: #2c2c2f;
+  color: #f7cb51;
+  border: none;
+}
+
+input[type="checkbox"].form-check-input {
+  accent-color: #f7cb51;
+  width: 1.2em;
+  height: 1.2em;
+  margin-top: 0.2em;
+}
+
+input[type="number"].form-control::-webkit-inner-spin-button,
+input[type="number"].form-control::-webkit-outer-spin-button {
+  filter: invert(0.85);
+}
+
+@media (max-width: 768px) {
+  .modal-dialog {
+    max-width: 96vw !important;
+    margin: 0.7rem auto;
+  }
+  .modal-content {
+    border-radius: 0.7rem;
+    font-size: 0.97rem;
+  }
+}

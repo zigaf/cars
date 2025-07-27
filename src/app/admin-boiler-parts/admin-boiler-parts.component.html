@@ -1,0 +1,157 @@
+<div class="container mt-4">
+  <h2>Boiler Parts</h2>
+
+  <button class="btn btn-success mb-3" (click)="createNew()">+ Добавить машину</button>
+
+  <!-- Таблица -->
+  <table class="table table-dark table-hover table-bordered">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Название</th>
+      <th>Цена</th>
+      <th>Производитель</th>
+      <th>В наличии</th>
+      <th>Конфигурация</th>
+      <th>Фотографии</th>
+      <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let part of parts">
+      <td>{{ part.id }}</td>
+      <td>{{ part.name }}</td>
+      <td>{{ part.price | number }}</td>
+      <td>{{ part.boiler_manufacturer }}</td>
+      <td>{{ part.in_stock }}</td>
+      <td>
+          <span *ngFor="let c of part.configuration; let last = last">
+            {{c}}{{last ? '' : ', '}}
+          </span>
+      </td>
+      <td>
+        <ng-container *ngFor="let img of asArray(part.images); let last = last">
+          <a [href]="img" target="_blank">Фото{{last ? '' : ', '}}</a>
+        </ng-container>
+      </td>
+      <td>
+        <button class="btn btn-sm btn-primary me-2" (click)="edit(part)">✏️</button>
+        <button class="btn btn-sm btn-danger" (click)="delete(part.id)">🗑️</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Модальное окно -->
+  <div class="modal fade show" tabindex="-1" [ngClass]="{'d-block': formVisible}" *ngIf="formVisible" style="background: rgba(0,0,0,0.7)">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{ selectedPart ? 'Редактировать' : 'Создать' }} машину</h5>
+          <button type="button" class="btn-close" (click)="cancel()"></button>
+        </div>
+        <form [formGroup]="editForm" (ngSubmit)="save()">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label>Название</label>
+              <input formControlName="name" class="form-control" />
+            </div>
+            <div class="col-md-3 mb-3">
+              <label>Цена</label>
+              <input formControlName="price" type="number" class="form-control" />
+            </div>
+            <div class="col-md-3 mb-3">
+              <label>В наличии</label>
+              <input formControlName="in_stock" type="number" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label>Производитель (машины)</label>
+              <input formControlName="boiler_manufacturer" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Производитель (запчасти)</label>
+              <input formControlName="parts_manufacturer" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label>Код производителя</label>
+              <input formControlName="vendor_code" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Модель</label>
+              <input formControlName="Model" class="form-control" />
+            </div>
+            <div class="col-md-3 mb-3">
+              <label>Год</label>
+              <input formControlName="Year" class="form-control" />
+            </div>
+            <div class="col-md-3 mb-3">
+              <label>Пробег</label>
+              <input formControlName="Mileage" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Двигатель</label>
+              <input formControlName="Engine" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Трансмиссия</label>
+              <input formControlName="Transmission" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Привод</label>
+              <input formControlName="Drive" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Топливо</label>
+              <input formControlName="fuel" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Обработано</label>
+              <input formControlName="processed" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+              <label>Совместимость</label>
+              <input formControlName="compatibility" class="form-control" />
+            </div>
+            <div class="col-md-6 mb-3">
+              <label>Популярность</label>
+              <input formControlName="popularity" type="number" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3 d-flex align-items-center">
+              <label class="me-2 mb-0">Хит продаж</label>
+              <input formControlName="bestseller" type="checkbox" class="form-check-input" />
+              <label class="ms-3 me-2 mb-0">Новинка</label>
+              <input formControlName="new" type="checkbox" class="form-check-input" />
+            </div>
+          </div>
+
+          <!-- Конфигурация -->
+          <div class="mb-3" formArrayName="configuration">
+            <label>Конфигурация</label>
+            <div *ngFor="let conf of configuration.controls; let i = index" class="input-group mb-1">
+              <input class="form-control" [formControlName]="i" placeholder="Опция конфигурации..." />
+              <button type="button" class="btn btn-outline-danger" (click)="configuration.removeAt(i)">✖️</button>
+            </div>
+            <button type="button" class="btn btn-outline-primary btn-sm mt-2" (click)="configuration.push(fb.control(''))">+ Конфигурация</button>
+          </div>
+
+          <!-- Фотографии -->
+          <div class="mb-3" formArrayName="images">
+            <label>Фотографии (URL)</label>
+            <div *ngFor="let img of images.controls; let i = index" class="input-group mb-1">
+              <input class="form-control" [formControlName]="i" placeholder="https://..." />
+              <button type="button" class="btn btn-outline-danger" (click)="images.removeAt(i)">✖️</button>
+            </div>
+            <button type="button" class="btn btn-outline-primary btn-sm mt-2" (click)="images.push(fb.control(''))">+ Фото</button>
+          </div>
+
+          <button class="btn btn-success me-2" type="submit">💾 Сохранить</button>
+          <button class="btn btn-secondary" type="button" (click)="cancel()">❌ Отмена</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

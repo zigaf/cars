@@ -70,4 +70,7 @@ export class BoilerPart {
 
   @Column({ type: 'varchar', length: 250, nullable: true })
   processed: string;
+
+  @Column({ type: 'simple-array', nullable: true })
+  configuration: string[];
 }

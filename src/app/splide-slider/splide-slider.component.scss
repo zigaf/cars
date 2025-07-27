@@ -29,8 +29,12 @@
 
 swiper-container {
   width: 100%;
+  max-height: 600px;
 }
 
+swiper-slide {
+  max-height: 600px;
+}
 
 
 .slide {
@@ -41,4 +45,67 @@ swiper-container {
 
   object-fit: cover;
 
+}
+
+
+.car-thumbnails {
+  display: flex;
+  gap: 9px;
+  margin-bottom: 12px;
+  margin-top: 2px;
+  overflow-x: auto;
+  padding-bottom: 1px;
+}
+.car-thumbnails img {
+  width: 58px;
+  height: 44px;
+  border-radius: 7px;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.7;
+  border: 2px solid transparent;
+  background: #f5f5f7;
+  transition: border 0.18s, opacity 0.15s;
+  box-shadow: 0 1px 4px #0001;
+}
+.car-thumbnails img.active,
+.car-thumbnails img:hover {
+  border: 2px solid #ffe600;
+  opacity: 1;
+}
+
+
+.thumbnails {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 16px;
+
+  position: relative;
+  z-index: 9999;
+
+  img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border 0.2s;
+
+    &.active {
+      border-color: gold;
+    }
+  }
+}
+
+
+.thumbnails img {
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.thumbnails img.active {
+  opacity: 1;
+  border: 2px solid gold;
 }

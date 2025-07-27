@@ -1,25 +1,11 @@
-<div class="car-details-layout">
-  <!-- Левая часть -->
+<div class="car-details-layout light">
   <div class="car-details-left">
     <app-splide-slider
       [slides]="images"
       [options]="{ height: 400, start: selectedImageIdx }">
     </app-splide-slider>
 
-    <div class="car-thumbnails">
-      <img *ngFor="let img of images; let i = index"
-           [src]="img"
-           [class.active]="i === selectedImageIdx"
-           (click)="selectImage(i)" />
-    </div>
-
-    <div class="car-description">
-      <h3>Описание:</h3>
-      <div>{{ car?.description || car?.compatibility }}</div>
-    </div>
   </div>
-
-  <!-- Правая часть -->
   <div class="car-details-right">
     <h1 class="car-title">{{ car?.boiler_manufacturer }} {{ car?.name }} {{ car?.Year }}</h1>
     <div class="car-price">
@@ -38,16 +24,74 @@
       <div><b>Мест:</b> {{ car?.seats }}</div>
       <div><b>В наличии:</b> {{ car?.in_stock }}</div>
     </div>
-    <button class="main-btn" (click)="openOrderModal()">Купить</button>
-    <div class="side-actions">
-      <a href="#" (click)="openFavModal($event)">Добавить в избранное</a>
-      <a href="#" (click)="openQuestionModal($event)">Задать вопрос</a>
-    </div>
-    <div class="carfax-action">
-      <button (click)="openCarfaxModal()">Carfax отчет</button>
-    </div>
-    <div class="calc-action">
-      <button (click)="openCalcModal()">Рассчитать стоимость</button>
+    <div class="main-action-btns">
+      <button class="main-btn filled" (click)="openOrderModal()">Купить</button>
+      <button class="main-btn outlined" (click)="openCarfaxModal()">Carfax</button>
+      <button class="main-btn outlined" (click)="openCalcModal()">Рассчитать</button>
+      <button class="main-btn outlined" (click)="openFavModal($event)">★</button>
+      <button class="main-btn outlined" (click)="openQuestionModal($event)">?</button>
     </div>
   </div>
 </div>
+
+
+
+<div class="car-details-layout light" >
+  <div class="car-details-left">
+    <div class="car-description">
+      <h3>Описание:</h3>
+
+
+      <p class="medium-dick">
+        Представляем вашему вниманию Mercedes-Benz S 320 2007 года выпуска. Этот автомобиль сочетает в себе роскошь, комфорт и надежность. Черный кузов подчеркивает элегантность и статус владельца.
+      </p>
+    </div>
+
+
+  </div>
+
+  <div class="car-details-right small-huy">
+    <div class="car-description">
+      <h3>Конфигурации:</h3>
+      <div>{{ car?.description || car?.compatibility }}</div>
+
+      <div class="features-grid">
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i> Климат-контроль
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i> Кожаный салон
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i> Круиз-контроль
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i> Парктроник
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i> Электропакет
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i> Ксеноновые фары
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i> Люк
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i> Мультимедиа
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i> Подогрев сидений
+        </div>
+        <div class="feature-item">
+          <i class="fas fa-check-circle"></i> Камера заднего вида
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+
+

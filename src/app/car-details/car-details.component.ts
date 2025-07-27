@@ -10,7 +10,6 @@ import {DecimalPipe, NgForOf} from '@angular/common';
   imports: [
     SplideSliderComponent,
     DecimalPipe,
-    NgForOf
   ],
   styleUrls: ['./car-details.component.scss']
 })

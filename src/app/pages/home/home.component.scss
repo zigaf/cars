@@ -205,6 +205,11 @@
   flex-direction: column;
   box-shadow: 0 2px 8px rgba(0,0,0,.10);
   color: #fff;
+
+  border: 1.5px solid transparent;
+
+  transition: border-color .25s, box-shadow .25s;
+
 }
 .car-card img {
   width: 100%;
@@ -238,3 +243,91 @@
   }
 }
 
+@keyframes fadeInUpCard {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.car-list .car-card {
+  opacity: 0;
+  animation: fadeInUpCard 0.8s cubic-bezier(.22,1.05,.51,.93) forwards;
+}
+.car-list .car-card:nth-child(1) { animation-delay: .1s; }
+.car-list .car-card:nth-child(2) { animation-delay: .18s; }
+.car-list .car-card:nth-child(3) { animation-delay: .26s; }
+.car-list .car-card:nth-child(4) { animation-delay: .34s; }
+.car-card {
+  transition: box-shadow .25s cubic-bezier(.5,.2,.5,1.1), transform .18s;
+}
+.car-card:hover {
+  box-shadow: 0 4px 22px #ffe60044, 0 2px 14px #0007;
+  transform: translateY(-7px) scale(1.025);
+  border-color: #ffe60099;
+  z-index: 2;
+}
+
+.hero-btn, .main-btn {
+  transition: background .19s, color .16s, box-shadow .19s, transform .17s;
+  will-change: background, color, box-shadow, transform;
+  position: relative;
+  overflow: hidden;
+}
+.hero-btn:hover, .main-btn:hover {
+  background: #fff200;
+  color: #232323;
+  box-shadow: 0 4px 14px #ffe60055, 0 2px 12px #0006;
+  transform: scale(1.045);
+}
+
+.hero-btn:active::after, .main-btn:active::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 120%;
+  height: 120%;
+  background: rgba(255, 230, 0, 0.18);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple 0.5s linear;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes ripple {
+  from { opacity: .5; }
+  to   { opacity: 0; }
+}
+
+.hero-btn:active::after, .main-btn:active::after {
+  content: '';
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 120%;
+  height: 120%;
+  background: rgba(255, 230, 0, 0.18);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ripple 0.5s linear;
+  pointer-events: none;
+  z-index: 2;
+}
+@keyframes ripple {
+  from { opacity: .5; }
+  to   { opacity: 0; }
+}
+
+.hero-section, .hero-slider-section {
+  animation: fadeInUpCard 1.2s cubic-bezier(.22,1.05,.51,.93) both;
+}
+.catalog-link {
+  transition: color .16s, text-shadow .18s;
+}
+.catalog-link:hover {
+  color: #fff200;
+  text-shadow: 0 1px 6px #ffe60044;
+}

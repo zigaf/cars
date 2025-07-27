@@ -14,17 +14,27 @@
 <!--    </ng-template>-->
 <!--  </li>-->
 <!--</ul>-->
+
+
 <swiper-container
+  #mainSwiper
   slides-per-view="1"
   speed="500"
   loop="true"
- >
-
+>
   <swiper-slide *ngFor="let slide of slides">
     <img class="slide" [src]="slide" />
   </swiper-slide>
 </swiper-container>
 
+<div class="thumbnails">
+  <img
+    *ngFor="let slide of slides; let i = index"
+    [src]="slide"
+    [class.active]="i === activeIndex"
+    (click)="goToSlide(i)"
+  />
+</div>
 <!--<div class="swiper">-->
 <!--  <div class="swiper-wrapper">-->
 <!--    <div *ngFor="let slide of slides;let index = index" class="swiper-slide">-->
