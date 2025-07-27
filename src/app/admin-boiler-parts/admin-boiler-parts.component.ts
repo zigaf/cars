@@ -67,27 +67,35 @@ export class AdminBoilerPartsComponent implements OnInit {
     return this.editForm.get('images') as FormArray;
   }
 
-  setArray(name: 'configuration'|'images', arr: string[] = []) {
-    const formArr = this.editForm.get(name) as FormArray;
-    formArr.clear();
-    arr.forEach(val => formArr.push(this.fb.control(val)));
-  }
+
 
   edit(part: any) {
     this.selectedPart = part;
-    this.editForm.patchValue(part);
-    this.setArray('configuration', part.configuration || []);
-    let imgs: string[] = [];
-    if (Array.isArray(part.images)) {
-      imgs = part.images;
-    } else if (typeof part.images === 'string' && part.images.startsWith('[')) {
-      try { imgs = JSON.parse(part.images); } catch { imgs = []; }
+    console.log(part, 'part');
+
+    // Сначала массивы
+    let config = part.configuration;
+    if (typeof config === 'string') {
+      try { config = JSON.parse(config); } catch { config = config.split(',').map((v: string) => v.trim()).filter(Boolean); }
     }
+    if (!Array.isArray(config)) config = [];
+    this.setArray('configuration', config);
+
+    let imgs = part.images;
+    if (typeof imgs === 'string') {
+      try { imgs = JSON.parse(imgs); } catch { imgs = imgs.split(',').map((v: string) => v.trim()).filter(Boolean); }
+    }
+    if (!Array.isArray(imgs)) imgs = [];
     this.setArray('images', imgs);
+
+    // Теперь остальные поля (НЕ массивы!)
+    // Создаём копию объекта БЕЗ images/configuration
+    const { configuration, images, ...rest } = part;
+    this.editForm.patchValue(rest);
+
     this.formVisible = true;
     this.cd.detectChanges();
   }
-
   createNew() {
     this.selectedPart = null;
     this.editForm.reset({ price: 0, in_stock: 0 });
@@ -138,5 +146,28 @@ export class AdminBoilerPartsComponent implements OnInit {
       }
     }
     return [];
+  }
+
+  setArray(name: 'configuration' | 'images', arr: any = []) {
+    const formArr = this.editForm.get(name) as FormArray;
+    formArr.clear();
+
+    // Жёсткая защита:
+    if (arr == null || arr === undefined) arr = [];
+
+    if (typeof arr === 'string') {
+      try {
+        const parsed = JSON.parse(arr);
+        arr = Array.isArray(parsed) ? parsed : [];
+      } catch {
+        // если строка не парсится в массив, делим по запятой
+        arr = arr.split(',').map((v: string) => v.trim()).filter(Boolean);
+      }
+    }
+
+    if (!Array.isArray(arr)) arr = [];
+
+    // Теперь arr гарантированно массив!
+    arr.forEach((val: string) => formArr.push(this.fb.control(val)));
   }
 }
